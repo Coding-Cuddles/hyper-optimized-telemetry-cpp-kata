@@ -28,13 +28,13 @@ trivial):
 
 | From                       | To                        | Type             |
 |:---------------------------|:------------------------- |:-----------------|
-| 4'294'967'296              | 9'223'372'036'854'775'807 | `long`           |
-| 2'147'483'648              | 4'294'967'295             | `unsigned int`   |
-| 65'536                     | 2'147'483'647             | `int`            |
-| 0                          | 65'535                    | `unsigned short` |
-| -32'768                    | -1                        | `short`          |
-| -2'147'483'648             | -32'769                   | `int`            |
-| -9'223'372'036'854'775'808 | -2'147'483'649            | `long`           |
+| 4,294,967,296              | 9,223,372,036,854,775,807 | `long`           |
+| 2,147,483,648              | 4,294,967,295             | `unsigned int`   |
+| 65,536                     | 2,147,483,647             | `int`            |
+| 0                          | 65,535                    | `unsigned short` |
+| -32,768                    | -1                        | `short`          |
+| -2,147,483,648             | -32,769                   | `int`            |
+| -9,223,372,036,854,775,808 | -2,147,483,649            | `long`           |
 
 The value should be converted to the appropriate number of bytes for its
 assigned type. The complete internal 9-byte buffer comprises three parts:
@@ -62,7 +62,7 @@ TelemetryBuffer::to_buffer(2'147'483'647);
 // => {0xfc, 0xff, 0xff, 0xff, 0x7f, 0x0, 0x0, 0x0, 0x0}
 ```
 
-> **Hint**
+> [!TIP]
 >
 > The `BitConverter` class provides a convenient way of converting integer
 > types to and from arrays of bytes.
@@ -81,7 +81,7 @@ If the prefix byte is of unexpected value, then return `0`.
 
 ## Integral numbers in C
 
-> **Note**
+> [!NOTE]
 >
 > For type sizes, we assume a typical 64-bit system.
 
@@ -92,13 +92,13 @@ type as allocated by the system:
 | Type             | Width  | Minimum                    | Maximum                     |
 |:-----------------|:-------|:---------------------------|:--------------------------- |
 | `char`           | 8 bit  | -128                       | +127                        |
-| `short`          | 16 bit | -32'768                    | +32'767                     |
-| `int`            | 32 bit | -2'147'483'648             | +2'147'483'647              |
-| `long`           | 64 bit | -9'223'372'036'854'775'808 | +9'223'372'036'854'775'807  |
+| `short`          | 16 bit | -32,768                    | +32,767                     |
+| `int`            | 32 bit | -2,147,483,648             | +2,147,483,647              |
+| `long`           | 64 bit | -9,223,372,036,854,775,808 | +9,223,372,036,854,775,807  |
 | `unsigned char`  | 8 bit  | 0                          | +255                        |
-| `unsigned short` | 16 bit | 0                          | +65'535                     |
-| `unsigned int`   | 32 bit | 0                          | +4'294'967'295              |
-| `unsigned long`  | 64 bit | 0                          | +18'446'744'073'709'551'615 |
+| `unsigned short` | 16 bit | 0                          | +65,535                     |
+| `unsigned int`   | 32 bit | 0                          | +4,294,967,295              |
+| `unsigned long`  | 64 bit | 0                          | +18,446,744,073,709,551,615 |
 
 This is a C++17 kata using GoogleTest. Setup is complete when CTest reports
 `100% tests passed`.
