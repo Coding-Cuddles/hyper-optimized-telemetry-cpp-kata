@@ -38,6 +38,7 @@ trivial):
 
 The value should be converted to the appropriate number of bytes for its
 assigned type. The complete internal 9-byte buffer comprises three parts:
+
 * _prefix byte_: a byte indicating the number of the payload bytes in the
   buffer;
 * _payload bytes_: the bytes holding the integer;
@@ -107,17 +108,17 @@ This is a C++17 kata using GoogleTest. Setup is complete when CTest reports
 
 Required:
 
-- [Git](https://git-scm.com/downloads)
-- A compiler with C++17 support. Choose one:
-  - [GCC](https://gcc.gnu.org/) 10+ on Linux
-  - [LLVM Clang](https://llvm.org/) 14+ on Linux
-  - [Apple Clang](https://developer.apple.com/xcode/) 17+ on macOS
-  - [MSVC](https://visualstudio.microsoft.com/) 2022 on Windows
-- [CMake 3.24 or later](https://cmake.org)
+* [Git](https://git-scm.com/downloads)
+* A compiler with C++17 support. Choose one:
+  * [GCC](https://gcc.gnu.org/) 10+ on Linux
+  * [LLVM Clang](https://llvm.org/) 14+ on Linux
+  * [Apple Clang](https://developer.apple.com/xcode/) 17+ on macOS
+  * [MSVC](https://visualstudio.microsoft.com/) 2022 on Windows
+* [CMake 3.24 or later](https://cmake.org)
 
 Optional:
 
-- [GNU Make](https://www.gnu.org/software/make/), for shorter commands. Every
+* [GNU Make](https://www.gnu.org/software/make/), for shorter commands. Every
   required task also has direct CMake and CTest commands. Make may be
   unavailable on Windows.
 
