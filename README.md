@@ -5,6 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Replit](https://img.shields.io/badge/Try%20with%20Replit-black?logo=replit)](https://replit.com/new/github/Coding-Cuddles/hyper-optimized-telemetry-cpp-kata)
 
+Implement compact integer encoding for a nine-byte telemetry buffer in C++17
+with GoogleTest. Setup is complete when the existing test suite passes.
+
 ## Overview
 
 This kata complements [Clean Code: Advanced TDD, Ep. 20](https://cleancoders.com/episode/clean-code-episode-20)
@@ -19,12 +22,12 @@ We will work on a telemetry system for a remote control car project. Bandwidth
 in the telemetry system is at a premium and you have been asked to implement a
 message protocol for communicating telemetry data.
 
-Data is transmitted in a buffer (byte array). When integers are sent, the size
-of the buffer is reduced by employing the protocol described below.
+Data is transmitted in a buffer (byte array). When integers are sent, the
+number of payload bytes is reduced by employing the protocol described below.
 
 Each value should be represented in the smallest possible C integral type
-(types of `char` and `unsigned char` are not included as the saving would be
-trivial):
+(types of `char` and `unsigned char` are not included because the space savings
+would be trivial):
 
 | From                       | To                        | Type             |
 |:---------------------------|:------------------------- |:-----------------|
@@ -39,19 +42,19 @@ trivial):
 The value should be converted to the appropriate number of bytes for its
 assigned type. The complete internal 9-byte buffer comprises three parts:
 
-* _prefix byte_: a byte indicating the number of the payload bytes in the
+* _prefix byte_: a byte indicating the number of payload bytes in the
   buffer;
 * _payload bytes_: the bytes holding the integer;
 * _trailing bytes_: the zero-fill bytes to complete the buffer.
 
 To distinguish between signed and unsigned types, the protocol introduces a
-little trick: for signed types, their _prefix byte_ value is `256` minus the
-number of _payload bytes_ in the buffer.
+little trick: for signed types, the _prefix byte_ is `256` minus the number of
+_payload bytes_ in the buffer.
 
 ### Exercise 1
 
-Implement the static method `TelemetryBuffer.to_buffer()` to encode a buffer
-taking an integer value passed to the method.
+Implement the static method `TelemetryBuffer.to_buffer()` to encode an integer
+value into a buffer.
 
 ```cpp
 // Type: unsigned short, bytes: 2, signed: no, prefix byte: 2
@@ -70,15 +73,15 @@ TelemetryBuffer::to_buffer(2'147'483'647);
 
 ### Exercise 2
 
-Implement the static method `TelemetryBuffer.from_buffer()` to decode the
-buffer received, and return the value in the form of an integer.
+Implement the static method `TelemetryBuffer.from_buffer()` to decode a
+received buffer and return its integer value.
 
 ```cpp
 TelemetryBuffer::from_buffer({0xfc, 0xff, 0xff, 0xff, 0x7f, 0x0, 0x0, 0x0, 0x0});
 // => 2'147'483'647
 ```
 
-If the prefix byte is of unexpected value, then return `0`.
+If the prefix byte has an unexpected value, return `0`.
 
 ## Integral numbers in C
 
@@ -86,23 +89,19 @@ If the prefix byte is of unexpected value, then return `0`.
 >
 > For type sizes, we assume a typical 64-bit system.
 
-The C language provides a number of types that represent integers, each with
-its own range of values. The ranges are determined by the storage width of the
-type as allocated by the system:
+The C language provides several integer types, each with its own range of
+values. The system's storage width for each type determines its range:
 
-| Type             | Width  | Minimum                    | Maximum                     |
-|:-----------------|:-------|:---------------------------|:--------------------------- |
-| `char`           | 8 bit  | -128                       | +127                        |
-| `short`          | 16 bit | -32,768                    | +32,767                     |
-| `int`            | 32 bit | -2,147,483,648             | +2,147,483,647              |
-| `long`           | 64 bit | -9,223,372,036,854,775,808 | +9,223,372,036,854,775,807  |
-| `unsigned char`  | 8 bit  | 0                          | +255                        |
-| `unsigned short` | 16 bit | 0                          | +65,535                     |
-| `unsigned int`   | 32 bit | 0                          | +4,294,967,295              |
-| `unsigned long`  | 64 bit | 0                          | +18,446,744,073,709,551,615 |
-
-This is a C++17 kata using GoogleTest. Setup is complete when CTest reports
-`100% tests passed`.
+| Type             | Width   | Minimum                    | Maximum                     |
+|:-----------------|:--------|:---------------------------|:--------------------------- |
+| `char`           | 8 bits  | -128                       | +127                        |
+| `short`          | 16 bits | -32,768                    | +32,767                     |
+| `int`            | 32 bits | -2,147,483,648             | +2,147,483,647              |
+| `long`           | 64 bits | -9,223,372,036,854,775,808 | +9,223,372,036,854,775,807  |
+| `unsigned char`  | 8 bits  | 0                          | +255                        |
+| `unsigned short` | 16 bits | 0                          | +65,535                     |
+| `unsigned int`   | 32 bits | 0                          | +4,294,967,295              |
+| `unsigned long`  | 64 bits | 0                          | +18,446,744,073,709,551,615 |
 
 ## Prerequisites
 
